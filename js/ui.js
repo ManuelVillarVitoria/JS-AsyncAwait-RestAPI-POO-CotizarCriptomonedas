@@ -55,6 +55,13 @@ class Interfaz {
 
     //Imprime el resultado de la cotización
     mostrarResultado(resultado,moneda,crypto) {
+        //En caso de un resultado anterior,ocultarlo
+        const resultadoAnterior =  document.querySelector('#resultado > div');
+
+        if (resultadoAnterior) {
+            resultadoAnterior.remove();
+        }
+
         const datosMoneda = resultado[crypto][moneda];
         console.log(datosMoneda);
 
@@ -75,11 +82,22 @@ class Interfaz {
             </div>
         `;
 
-        //Insertar el resultado
-        document.querySelector('#resultado').innerHTML = templateHTML;
+        this.mostrarOcultarSpinner('block');
 
-
+         setTimeout(() => {
+            //Insertar el resultado
+            document.querySelector('#resultado').innerHTML = templateHTML;
+            //Ocultar el spinner
+            this.mostrarOcultarSpinner('none');
+         },3000);
     }     
+
+    //Mostrar spinner de carga al enviar la cotización
+    mostrarOcultarSpinner(vista) {
+        const spinner = document.querySelector('.contenido-spinner');
+        spinner.style.display = vista;
+    }
+
 }
 
     
